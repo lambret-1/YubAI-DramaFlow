@@ -1,98 +1,69 @@
-# P4 段级分镜与音频一体 — 每段一张段卡
+# P4 段级分镜与音频一体 — 每段一个 md 文件
 
 ## 核心理念
 **段（segment）= 视频模型一次生成 = 15 秒 = 5–6 镜。**
-不再"每镜一个视频提示词"，而是"每段一条提示词"，内含多镜切点、台词、声景、配乐。
+每段一个 md 文件，打开即读完这段的全部内容：镜头表 + H3 提示词 + 豆包提示词 + TTS 配音。
+
+**音频不单独切块**：声景和配乐本来就是 H3（`overall_soundscape`/`non_diegetic_music`）和豆包（"全程声景...配乐..."）提示词的内嵌字段，跟着视频提示词一起复制。TTS 配音脚本最后单列（因为它是后期贴音频用的，不属于视频生成）。
 
 ## 输入
 - P1 剧本（4 段 × 5–6 beat）
 - P2 global_anchor
 - P3 manifest + 人物/场景卡
 
-## 做什么
+## 落盘结构
 
-对每一段（E01-01 ~ E01-04），生成一份段卡目录：
-
-### 4.1 段卡.md（元数据 + 镜头表）
-```yaml
-segment_id: E01-01
-time_range: 0-15s
-scene: 便利店_夜
-lighting: 冷白顶光 + 暖黄货架灯
-emotion_arc: 安静 → 微怔
-characters_in_shot: [小夜_正, 阿雾_正]
-
-blocking:
-  小夜在柜台后（画面左侧）
-  阿雾从右侧门口进入
-  间距：柜台宽度
-
-shots:
-  - shot: 1
-    time: 0.0-3.0s
-    framing: ELS
-    camera: fixed
-    action: 雨夜空荡街道，远处便利店暖光透出
-    refs: [街道_雨]
-    dialogue: null
-  - shot: 2
-    time: 3.0-6.0s
-    framing: MS
-    camera: fixed
-    action: 小夜在柜台后擦杯子
-    refs: [小夜_正, 便利店_夜]
-    dialogue: null
-  # ... 5-6 镜
+```
+04_段卡/
+├── 总览.md                    # 全片索引 + 配音对齐总表
+└── 第一集/
+    ├── E01-01.md             # 0-15s，一个文件含全部
+    ├── E01-02.md             # 15-30s
+    ├── E01-03.md             # 30-45s
+    └── E01-04.md             # 45-60s
 ```
 
-### 4.2 h3_prompt.md（MiniMax H3 完整提示词）
-按 `reference/minimax-h3-多参考模板.md` 段级结构写：
-- 首行：对齐指令（参考图编号 = 资产编码）
-- `integrated_multimodal_description:` 后逐镜一行 `[Shot k] 时刻: 画面描述`
-- 台词逐字进 `<d>[Chinese] …</d>` 块
-- `overall_soundscape:` 段级声景
-- `non_diegetic_music:` 段级配乐
+多集时自然扩展为 `第二集/E02-01.md`...
 
-### 4.3 doubao_prompt.md（豆包/Seedance 提示词）
-按 `reference/豆包视频提示词模板.md` 段级结构写：
-- 一段连续描述，镜与镜之间用"切："分隔
-- 末尾 `@编码` 引用所有参考图
-- 注明总时长 15s
+## 单个 E01-XX.md 文件结构
 
-### 4.4 audio.md（段级音频）
-```yaml
-soundscape:
-  - 全程雨声底噪
-  - 冰箱嗡嗡声（室内段）
-  - 门铃"叮"（Shot 3）
+```markdown
+# E01-01 段卡（0-15s）
 
-music:
-  style: 钢琴单音，稀疏，混响大
-  volume: 压低，不抢戏
-  entry: 淡入
-  exit: 持续
+## 一、元数据
+- 场景 / 光线 / 情绪弧 / 出场角色 / blocking
 
-voiceover:
-  - shot: 8
-    speaker: 阿雾
-    line: "老样子。"
-    tts_prompt: "用20岁女生的气声，偏轻偏慢，念：老样子。"
+## 二、镜头表
+| Shot | 时刻 | 景别 | 运镜 | 画面 | 引用资产 | 台词 |
+
+## 三、H3 提示词（直接复制到 Hailuo）
+[对齐指令] 保持角色面部与服装一致。参考图1=...，图2=...
+
+integrated_multimodal_description:
+[Shot 1] 0.0-3.0s: ...
+[Shot 2] 3.0-6.0s: ...
+[Shot 3] 6.0-8.0s: ...
+
+overall_soundscape: ...       ← 音频嵌这里
+non_diegetic_music: ...       ← 音频嵌这里
+
+## 四、豆包/Seedance 提示词（直接复制到即梦）
+镜1：...
+切：镜2：...
+全程声景：...配乐：...        ← 音频嵌这里
+@编码1 @编码2 ...
+9:16 竖屏，15 秒。
+
+## 五、配音脚本（TTS 用）
+| Shot | 说话人 | 台词 | TTS 提示词 |
 ```
-
-## 产物
-- `04_段卡/总览.md`（4 段索引 + 全片配音对齐总表）
-- `04_段卡/E01-01/段卡.md`
-- `04_段卡/E01-01/h3_prompt.md`
-- `04_段卡/E01-01/doubao_prompt.md`
-- `04_段卡/E01-01/audio.md`
-- （E01-02 ~ E01-04 同结构）
 
 ## Gate4
 - [ ] 恰好 4 段，每段 15s，总 60s
 - [ ] 每段 5–6 镜，每镜 2–4 秒
-- [ ] 每段 H3 提示词含 `[Shot k]` 切点时刻，时刻与镜头表对齐
-- [ ] 每段台词逐字进 `<d>` 块
-- [ ] 每段有 `overall_soundscape` 和 `non_diegetic_music`
-- [ ] 每段豆包提示词含 `@编码`，编码都在 manifest 注册
-- [ ] 每段 audio.md 有 TTS 提示词（本段无台词则标"无"）
+- [ ] H3 提示词含 `[Shot k]` 切点时刻，与镜头表对齐
+- [ ] 台词逐字进 `<d>[Chinese]…</d>` 块
+- [ ] H3 提示词末尾含 `overall_soundscape` 和 `non_diegetic_music`
+- [ ] 豆包提示词末尾含"全程声景...配乐..."
+- [ ] 豆包 `@编码` 都在 manifest.md 注册
 - [ ] 全片配音对齐总表在 `总览.md`
