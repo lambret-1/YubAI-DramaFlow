@@ -1,5 +1,5 @@
 
-```markdown
+
 # 单镜 JSON Schema（P4 机读版）
 
 每镜一个文件 `shots/shot_<id>.json`。P4 读这个文件，分别生成豆包版和 H3 版提示词。
