@@ -44,7 +44,7 @@
 
 ## 三、H3 提示词（直接复制到 Hailuo）
 
-[整块复制下方代码块，并把 &lt; 替换为 <、&gt; 替换为 >]
+[整块复制下方“H3 提示词模板”，去掉标签两侧的反引号后使用]
 
 ## 四、豆包/Seedance 提示词（直接复制到即梦）
 
@@ -74,28 +74,29 @@
 | Shot | 说话人 | 台词 | TTS 提示词 |
 ```
 
-## 三、H3 提示词模板（复制后替换 `&lt;` 为 `<`、`&gt;` 为 `>`）
+## H3 提示词模板（六段式，整块复制）
+
+> 复制后，请去掉标签两侧的反引号，把 `<Subject N>`、`<Picture N>`、`<d>` 变成纯文本标签。
 
 ````text
-subject_definitions:
-&lt;Subject 1&gt; is [character name], whose face and outfit come from &lt;Picture 1&gt;.
-&lt;Subject 2&gt; is [character name], whose face and outfit come from &lt;Picture 2&gt;.
-&lt;Subject 3&gt; is [scene name], whose layout and lighting come from &lt;Picture 3&gt;.
+`<Subject 1>` is [character name], whose face and outfit come from `<Picture 1>`.
+`<Subject 2>` is [character name], whose face and outfit come from `<Picture 2>`.
+`<Subject 3>` is [scene name], whose layout and lighting come from `<Picture 3>`.
 [add or remove Subject lines as needed]
 
 summary:
 [reference generation] [one-sentence summary of the target video]
 
 retention_analysis:
-&lt;Subject 1&gt; (appears in [Shot k], [Shot k]): fully_preserved - [what is preserved]
-&lt;Subject 2&gt; (appears in [Shot k]): fully_preserved - [what is preserved]
+`<Subject 1>` (appears in [Shot k], [Shot k]): fully_preserved - [what is preserved]
+`<Subject 2>` (appears in [Shot k]): fully_preserved - [what is preserved]
 
 detailed_description:
 [1-2 sentences of overall style]
 
 [Shot 1] [composition, subject appearance and position, environment and lighting, action and state change, camera movement, current sound, reference activation point. No timestamp.]
 [Shot 2] At 00:03.000, the camera cuts to [content].
-[Shot 3] At 00:06.000, the camera cuts to [content]. [if dialogue: &lt;Subject N&gt; (S1) says, &lt;d&gt;[Chinese] line.&lt;/d&gt;]
+[Shot 3] At 00:06.000, the camera cuts to [content]. [if dialogue: `<Subject N>` (S1) says, `<d>`[Chinese] line.`</d>`]
 
 overall_soundscape:
 [1-4 sentences in English. Only ambient sound, physical action sound, non-verbal human voice.]
@@ -143,6 +144,4 @@ Gate4
 □ 全片配音对齐总表在 总览.md
 
 ```
-
-**修复说明：** H3 模板代码块内的 `<Subject N>`、`<Picture N>`、`<d>` 全部写成 `&lt;...&gt;`，确保 GitHub 网页渲染后可见；代码块标题已注明“复制后替换 `&lt;` 为 `<`、`&gt;` 为 `>`”。表格和说明中的标签用行内代码包裹，不受影响。
 ```
