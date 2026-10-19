@@ -47,7 +47,7 @@ non_diegetic_music:
 Sparse single piano notes, with large reverb and low volume.
 ```
 
-关键规则
+##关键规则
 
 字段 规则
 六段顺序 subject_definitions → summary → retention_analysis → detailed_description → overall_soundscape → non_diegetic_music，不可变
