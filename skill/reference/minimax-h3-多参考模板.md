@@ -13,7 +13,7 @@
 
 ## 标准结构（可直接复制）
 
-```
+```text
 subject_definitions:
 <Subject 1> is Xiaoye, whose face and outfit come from <Picture 1>.
 <Subject 2> is Awu, whose face and outfit come from <Picture 2>.
@@ -47,7 +47,7 @@ non_diegetic_music:
 Sparse single piano notes, with large reverb and low volume.
 ```
 
-## 关键规则
+关键规则
 
 字段 规则
 六段顺序 subject_definitions → summary → retention_analysis → detailed_description → overall_soundscape → non_diegetic_music，不可变
@@ -63,3 +63,5 @@ overall_soundscape 1–4 句英语；只写环境声、物理动作声、非语�
 non_diegetic_music 1–3 句英语；只写乐器、速度、节奏、动态；不写抽象情绪词；无配乐写 N/A
 画内拟声词 不是画面文字，六段内必须写英语，如 door chime ding
 
+```
+```
