@@ -13,7 +13,7 @@
 
 ## 标准结构（可直接复制）
 
-````
+```
 subject_definitions:
 <Subject 1> is Xiaoye, whose face and outfit come from <Picture 1>.
 <Subject 2> is Awu, whose face and outfit come from <Picture 2>.
