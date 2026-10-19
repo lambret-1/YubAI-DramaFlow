@@ -1,0 +1,67 @@
+name: Skill CI
+
+on:
+  pull_request:
+    paths:
+      - "skill/**"
+      - ".github/workflows/skill-ci.yml"
+  push:
+    branches: [testping]
+    paths:
+      - "skill/**"
+
+concurrency:
+  group: skill-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  hygiene:
+    name: 基础
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v4
+      - name: JSON 语法检查
+        run: |
+          find skill -name "*.json" -exec python -m json.tool {} \; > /dev/null
+      - name: Markdown lint
+        run: |
+          npm install -g markdownlint-cli
+          markdownlint "skill/**/*.md" \
+            --config '{"MD013": false, "MD033": false}'
+      - name: 内部路径引用检查
+        run: python scripts/check_skill_links.py
+
+  structure:
+    name: 结构完整性
+    needs: hygiene
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: 安装依赖
+        run: pip install pyyaml pytest
+      - name: 目录与文件存在性
+        run: pytest tests/test_structure.py -v
+      - name: project.json 状态机校验
+        run: pytest tests/test_state_machine.py -v
+      - name: Schema 枚举与字段校验
+        run: pytest tests/test_schema_contract.py -v
+
+  gate-logic:
+    name: P4 Gate 逻辑模拟
+    needs: hygiene
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: 安装依赖
+        run: pip install pyyaml pytest
+      - name: 有效 fixture 应通过
+        run: pytest tests/test_gate4_valid.py -v
+      - name: 无效 fixture 应失败（反向测试）
+        run: pytest tests/test_gate4_invalid.py -v
