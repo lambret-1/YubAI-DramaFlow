@@ -1,0 +1,151 @@
+name: Skill CI
+
+on:
+  # 手动触发：随时全量验证，不受 paths 过滤影响
+  workflow_dispatch:
+    inputs:
+      run_invalid_fixtures:
+        description: "是否执行反向 fixture 测试（证明闸门会拒绝非法输入）"
+        type: boolean
+        default: true
+      debug:
+        description: "输出详细日志（pytest -vv）"
+        type: boolean
+        default: false
+
+  # 被其他 workflow 复用（如发布前门禁）
+  workflow_call:
+    inputs:
+      run_invalid_fixtures:
+        type: boolean
+        default: true
+      debug:
+        type: boolean
+        default: false
+
+  # PR 与推送到 testping 分支时自动触发
+  pull_request:
+    paths:
+      - "skill/**"
+      - "tests/**"
+      - "scripts/**"
+      - ".github/workflows/skill-ci.yml"
+  push:
+    branches: [testping]
+    paths:
+      - "skill/**"
+      - "tests/**"
+      - "scripts/**"
+      - ".github/workflows/skill-ci.yml"
+
+concurrency:
+  group: skill-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  PYTHON_VERSION: "3.12"
+  PYTEST_FLAGS: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call') && inputs.debug && '-vv' || '-v' }}
+  RUN_INVALID: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call') && (inputs.run_invalid_fixtures && 'true' || 'false') || 'true' }}
+
+jobs:
+  # ---------------------------------------------------------------
+  # Job 1: 基础卫生检查（快速失败，< 30s）
+  # ---------------------------------------------------------------
+  hygiene:
+    name: 基础卫生
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: JSON 语法检查
+        run: |
+          set -euo pipefail
+          mapfile -t json_files < <(find skill -name "*.json" -type f)
+          if [ ${#json_files[@]} -eq 0 ]; then
+            echo "::warning::skill/ 下未找到 JSON 文件，跳过"
+            exit 0
+          fi
+          for f in "${json_files[@]}"; do
+            echo "checking $f"
+            python -m json.tool "$f" > /dev/null
+          done
+
+      - name: Markdown lint
+        run: |
+          set -euo pipefail
+          npm install -g markdownlint-cli@0.42.0
+          markdownlint "skill/**/*.md" \
+            --config '{"MD013": false, "MD033": false, "MD041": false}'
+
+      - name: 内部路径引用检查
+        run: python scripts/check_skill_links.py
+
+  # ---------------------------------------------------------------
+  # Job 2: 结构完整性校验（核心）
+  # ---------------------------------------------------------------
+  structure:
+    name: 结构完整性
+    needs: hygiene
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: 安装依赖
+        run: pip install --quiet pyyaml pytest
+
+      - name: 目录与文件存在性
+        run: pytest tests/test_structure.py ${{ env.PYTEST_FLAGS }}
+
+      - name: project.json 状态机校验
+        run: pytest tests/test_state_machine.py ${{ env.PYTEST_FLAGS }}
+
+      - name: Schema 枚举与字段校验
+        run: pytest tests/test_schema_contract.py ${{ env.PYTEST_FLAGS }}
+
+  # ---------------------------------------------------------------
+  # Job 3: P4 Gate 逻辑模拟（正向 + 反向）
+  # ---------------------------------------------------------------
+  gate-logic:
+    name: P4 Gate 逻辑模拟
+    needs: hygiene
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      - name: 安装依赖
+        run: pip install --quiet pyyaml pytest
+
+      - name: 有效 fixture 应通过
+        run: pytest tests/test_gate4_valid.py ${{ env.PYTEST_FLAGS }}
+
+      - name: 无效 fixture 应失败（反向测试）
+        if: env.RUN_INVALID == 'true'
+        run: pytest tests/test_gate4_invalid.py ${{ env.PYTEST_FLAGS }}
+
+      - name: 汇总
+        if: always()
+        run: |
+          echo "RUN_INVALID=${{ env.RUN_INVALID }}"
+          echo "PYTEST_FLAGS=${{ env.PYTEST_FLAGS }}"
+          echo "event=${{ github.event_name }}"
