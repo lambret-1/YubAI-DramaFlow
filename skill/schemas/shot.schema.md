@@ -61,5 +61,3 @@ image_refs 编码规则
 · image_refs 中每个编码都在 manifest.md 注册
 · video_prompt_doubao 和 video_prompt_minimax_h3 由 P4 生成，不是 P5
 
-```
-```
