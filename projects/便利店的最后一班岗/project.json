@@ -1,0 +1,22 @@
+{
+  "project_name": "便利店的最后一班岗",
+  "logline": "雨夜便利店，每天凌晨来买热牛奶的女孩说'我明天不来了'，店员在柜台上发现她落下的伞，伞柄上刻着他的名字。",
+  "total_duration_sec": 60,
+  "ratio": "9:16",
+  "segments": 4,
+  "shots_per_segment": "5-6",
+  "current_phase": "p6_audio",
+  "phases": {
+    "p1_story":   {"status": "done", "segments": 4},
+    "p2_style":   {"status": "done"},
+    "p3_assets":  {"status": "done"},
+    "p4_board":   {"status": "done", "shots": 22},
+    "p5_video":   {"status": "done"},
+    "p6_audio":   {"status": "done"}
+  },
+  "global_anchor": {
+    "zh": "日漫风格，治愈系爱情题材，雨夜便利店暖光与冷蓝夜色对比，新海诚光影，细腻人物刻画，柔和逆光，清新氛围",
+    "en": "anime style, healing romance, rainy night convenience store, warm light vs cool blue night, Makoto Shinkai inspired lighting, detailed character design, soft rim light, cinematic, masterpiece",
+    "negative": "blurry, low quality, deformed, bad anatomy, extra limbs, watermark, text, western cartoon, 3D render, horror"
+  }
+}
