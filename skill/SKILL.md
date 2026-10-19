@@ -1,4 +1,4 @@
-```markdown
+
 # drama-studio — 1 分钟 AI 短剧半自动制片工作流
 
 **定位**：不产图、不产视频，只产“可直接复制到文生图 / 图生视频 / TTS 工具的提示词包”。
@@ -18,30 +18,26 @@
 
 ## 2. 流水线
 
-```
-
+```text
 P1 故事层 ──► P2 风格层 ──► P3 资产层 ──► P4 段级分镜与音频一体
 大纲/剧本      风格锚定词      人物/场景卡      每段一条：镜头表 + H3提示词 + 豆包提示词 + 声景 + 配乐 + 配音
 │             │             │             │
 Gate1         Gate2         Gate3         Gate4
-
 ```
 
-**关键变化**：P4 不再是“分镜表”，而是“段卡”——以段为单位，把镜头表、双视频提示词、声景、配乐、配音对齐全部打包。因为段才是视频模型一次生成的单位。
+关键变化：P4 不再是“分镜表”，而是“段卡”——以段为单位，把镜头表、双视频提示词、声景、配乐、配音对齐全部打包。因为段才是视频模型一次生成的单位。
 
-## 3. 入口路由
+3. 入口路由
 
-| 用户说 | 进入 |
-|---|---|
-| “我要做一个 1 分钟短剧，题材是 X” | P1，从 `templates/project-brief.md` 开始 |
-| “我已经有剧本了” | 跳过 P1，直接进 P2 |
-| “风格定过了， `下一步呢”door | 读 ` chproject.json`，定位 `current_phase` |
-| “继续上次的项目” | 读 `project.json` 续作 |
+用户说 进入
+“我要做一个 1 分钟短剧，题材是 X” P1，从 templates/project-brief.md 开始
+“我已经有剧本了” 跳过 P1，直接进 P2
+“风格定过了，下一步呢” 读 project.json，定位 current_phase
+“继续上次的项目” 读 project.json 续作
 
-## 4. 目录结构
+4. 目录结构
 
-```
-
+```text
 projects/<项目名>/
 ├── project.json              # 状态机
 ├── 01_故事/
@@ -61,10 +57,9 @@ projects/<项目名>/
 ├── E01-02.md        # 15-30s
 ├── E01-03.md        # 30-45s
 └── E01-04.md        # 45-60s
-
 ```
 
-## 5. project.json
+5. project.json
 
 ```json
 {
@@ -94,7 +89,7 @@ H3 六段式语言规则与 Gate4 自检以 phases/p4-segment.md 为准：
 
 · 六段字段顺序不可变：subject_definitions → summary → retention_analysis → detailed_description → overall_soundscape → non_diegetic_music
 · 六段主体全英文；仅 <d> 内台词/歌词和英文双引号内画面可见文字可保留中文
-· 画内拟声词（如门铃“叮”）在六段主体内必须写英语，如ime ding`
+· 画内拟声词（如门铃“叮”）在六段主体内必须写英语，如 ding
 · [Shot 1] 不写时间戳；后续镜头用 At MM:SS.mmm, the camera cuts to ...
 · retention_analysis 只使用 fully_preserved / partially_preserved / attribute_transfer / weak_reference
 
