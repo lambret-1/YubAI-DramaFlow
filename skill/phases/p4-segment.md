@@ -42,7 +42,7 @@
 | Shot | 时刻 | 景别 | 运镜 | 画面 | 引用资产 | 台词 |
 
 
-## t上传清单
+## 图片上传清单
 
 | 编号 | 资产编码 | 文件路径 | 对应标签 |
 |---|---|---|---|
@@ -54,6 +54,7 @@
 
 ## 三、H3 提示词（直接复制到 Hailuo）
 
+````text
 subject_definitions:
 <Subject 1> is [character name], whose face and outfit come from <Picture 1>.
 <Subject 2> is [character name], whose face and outfit come from <Picture 2>.
@@ -64,13 +65,13 @@ summary:
 [reference generation] [one-sentence summary of the target video]
 
 retention_analysis:
-<Subject t1> (appears in [Shot k], [Shot k]): fully_preserved - [what is preserved]
+<Subject 1> (appears in [Shot k], [Shot k]): fully_preserved - [what is preserved]
 <Subject 2> (appears in [Shot k]): fully_preserved - [what is preserved]
 
 detailed_description:
 [1-2 sentences of overall style]
 
-[Shot 1] [composition, subject appearance and position, environment and lighting, action and state change, camera movemhent, current sound, reference activation point. No timestamp.]
+[Shot 1] [composition, subject appearance and position, environment and lighting, action and state change, camera movement, current sound, reference activation point. No timestamp.]
 [Shot 2] At 00:03.000, the camera cuts to [content].
 [Shot 3] At 00:06.000, the camera cuts to [content]. [if dialogue: <Subject N> (S1) says, <d>[Chinese] line.</d>]
 
@@ -79,7 +80,6 @@ overall_soundscape:
 
 non_diegetic_music:
 [1-3 sentences in English. Only instrumentation, tempo, rhythm, dynamics. Write N/A if none.]
-
 ## 四、豆包/Seedance 提示词（直接复制到即梦）
 
 @编码1 @编码2 ...
