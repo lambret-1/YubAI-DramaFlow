@@ -1,4 +1,4 @@
-```markdown
+
 # MiniMax H3 Ref2VA 六段式提示词模板
 
 ## 上传清单
@@ -63,5 +63,3 @@ overall_soundscape 1–4 句英语；只写环境声、物理动作声、非语�
 non_diegetic_music 1–3 句英语；只写乐器、速度、节奏、动态；不写抽象情绪词；无配乐写 N/A
 画内拟声词 不是画面文字，六段内必须写英语，如 door chime ding
 
-```
-```
