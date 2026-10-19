@@ -1,7 +1,13 @@
----
 
 MiniMax H3 Ref2VA 六段式提示词模板
-
+---
+上传清单
+编号 资产编码 文件路径 对应标签
+图1 小夜_正 assets/人物/小夜/正.png <Subject 1>
+图2 阿雾_正 assets/人物/阿雾/正.png <Subject 2>
+图3 便利店_夜 assets/场景/便利店/夜.png <Subject 3>
+图4 便利店门口_夜 assets/场景/便利店门口/夜.png <Subject 4>
+图5 街道_雨 assets/场景/街道/雨.png <Subject 5>
 标准结构（可直接复制）
 
 ```text
@@ -72,14 +78,6 @@ Sparse single piano notes, with large reverb and low volume.
 
 1–3句英语，只写角色听不到的配乐：乐器、速度、节奏、动态。不写抽象情绪词；无配乐写N/A。
 
-上传清单（六段外，中文备注可自留）
-
-编号 资产编码 文件路径 对应标签
-图1 小夜_正 assets/人物/小夜/正.png <Subject 1>
-图2 阿雾_正 assets/人物/阿雾/正.png <Subject 2>
-图3 便利店_夜 assets/场景/便利店/夜.png <Subject 3>
-图4 便利店门口_夜 assets/场景/便利店门口/夜.png <Subject 4>
-图5 街道_雨 assets/场景/街道/雨.png <Subject 5>
 
 提交前自检
 
