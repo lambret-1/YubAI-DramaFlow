@@ -94,8 +94,8 @@ projects/<项目名>/
 
 | 模板 | 参考文档 | 语法特征 |
 |---|---|---|
-| **豆包 / Seedance** | `reference/豆包视频提示词模板.md` | 段级：一段连续描述 + 切镜 + `@编码` 引用 |
-| **MiniMax H3** | `reference/minimax-h3-多参考模板.md` | 段级：`[Shot k] 时刻: ...` + 台词 `<d>` 块 + `overall_soundscape` + `non_diegetic_music` |
+| **豆包 / Seedance** | `reference/豆包视频提示词模板.md` | 段级：`参考官方模版` |
+| **MiniMax H3** | `reference/minimax-h3-多参考模板.md` | 段级：`官方多参考模式六段` |
 
 ---
 
