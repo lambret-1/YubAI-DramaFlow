@@ -28,7 +28,8 @@
 
   "image_prompt_zh": "[由 P4 生成，已拼 global_anchor]",
   "image_prompt_en": "[...]",
-  "image_refs": ["assets/人物/林小雨/校服_正面.png", "assets/场景/教室_白天.png"],
+
+  "image_refs": ["林小雨_正", "教室_白天"],
 
   "video_prompt_doubao": "[由 P5 生成]",
   "video_prompt_minimax_h3": "[由 P5 生成]",
@@ -48,6 +49,13 @@
 | `dialogue.type` | voiceover / diegetic / none |
 | `transition_out` | cut / dissolve / fade_to_black / match_cut |
 
+## image_refs 编码规则
+
+- 人物：`<角色全名>_<变体>`，例 `林小雨_正`、`林小雨_笑`
+- 场景：`<场景名>_<时段>`，例 `教室_白天`、`天台_黄昏`
+- 道具：直接 `<道具名>`，例 `信封`
+- **每个编码必须在 `03_资产/manifest.md` 注册过**
+
 ## 硬校验（P4 Gate4 必查）
 
 - [ ] `duration_sec` 在 1.5–4 之间
@@ -56,3 +64,4 @@
 - [ ] 全片 4 个 segment，总时长 57–63 秒
 - [ ] 每镜 `image_prompt_zh` 开头都拼了 `global_anchor.zh`
 - [ ] `difficulty=red/blocked` 的镜必须有 `fallback` 字段
+- [ ] **`image_refs` 中每个编码都在 manifest.md 注册**
