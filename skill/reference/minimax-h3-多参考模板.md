@@ -1,75 +1,93 @@
-# 🐦 MiniMax H3 段级提示词模板（Omni Reference）
+---
 
-> 一段 = 一次 H3 生成 = 15 秒 = 5–6 镜。
-> 结构：对齐指令 + `integrated_multimodal_description`（逐镜 `[Shot k] 时刻:`）+ 台词 `<d>` 块 + `overall_soundscape` + `non_diegetic_music`。
+MiniMax H3 Ref2VA 六段式提示词模板
 
-## 标准结构
+标准结构（可直接复制）
 
-```
-[对齐指令] 保持角色面部与服装一致。参考图1=小夜_正，图2=阿雾_正，图3=便利店_夜，图4=便利店门口_夜，图5=街道_雨。
+```text
+subject_definitions:
+<Subject 1> is Xiaoye, whose face and outfit come from <Picture 1>.
+<Subject 2> is Awu, whose face and outfit come from <Picture 2>.
+<Subject 3> is the convenience store interior at night, whose layout and warm lighting come from <Picture 3>.
+<Subject 4> is the convenience store entrance at night, whose glass door and exterior come from <Picture 4>.
+<Subject 5> is the rainy street at night, whose wet pavement and distant glow come from <Picture 5>.
 
-integrated_multimodal_description:
-[Shot 1] 0.0-3.0s: 雨夜空荡街道，远处便利店暖光从玻璃透出。固定镜头。
-[Shot 2] 3.0-6.0s: 便利店内，小夜在柜台后擦杯子。固定镜头。
-[Shot 3] 6.0-8.0s: 便利店玻璃门被推开，门铃响。固定镜头。
-[Shot 4] 8.0-12.0s: 阿雾站在门口，雨水从黑色湿发梢滴落。固定镜头。
-[Shot 5] 12.0-15.0s: 小夜抬头，眼神微怔，镜头缓慢推近到特写。暖黄灯光打在脸上。
+summary:
+[reference generation] A 15-second rainy-night scene in and around a convenience store, featuring Xiaoye and Awu. The target video uses the character references for facial and outfit consistency, and the environment references for the store interior, the entrance, and the rainy street.
 
-overall_soundscape: 全程雨声底噪，室内段冰箱嗡嗡声，Shot 3 门铃"叮"。
+retention_analysis:
+<Subject 1> (appears in [Shot 2], [Shot 5]): fully_preserved - Xiaoye retains her facial identity and outfit from <Picture 1>.
+<Subject 2> (appears in [Shot 4]): fully_preserved - Awu retains her facial identity, wet black hair, and outfit from <Picture 2>.
+<Subject 3> (appears in [Shot 2], [Shot 3]): fully_preserved - the store interior layout and warm lighting are retained.
+<Subject 4> (appears in [Shot 3], [Shot 4]): fully_preserved - the glass door and entrance area are retained.
+<Subject 5> (appears in [Shot 1]): fully_preserved - the rainy street surface and distant store glow are retained.
 
-non_diegetic_music: 钢琴单音，稀疏，混响大，音量压低。
-```
+detailed_description:
+The target video uses a cinematic live-action style with soft warm interior lighting and a cool rainy exterior palette.
 
-## 关键规则
+[Shot 1] An empty rainy street at night; warm light from a distant convenience store glows through the glass. Static shot.
+[Shot 2] At 00:03.000, the camera cuts to the inside of the convenience store, where Xiaoye stands behind the counter wiping a cup. Static shot.
+[Shot 3] At 00:06.000, the camera cuts to the glass door of the convenience store being pushed open, and the door chime rings. Static shot.
+[Shot 4] At 00:08.000, the camera cuts to Awu standing at the doorway, rainwater dripping from the tips of her wet black hair. Static shot.
+[Shot 5] At 00:12.000, the camera cuts to Xiaoye looking up, her eyes slightly stunned; the camera pushes in at slow speed with small amplitude to a close-up. Warm yellow light falls on Xiaoye's face.
 
-### 1. 对齐指令
-- 首行显式声明"图N=资产编码"
-- 编码必须与 manifest.md 注册一致
-- 上传顺序按编号 1→N
+overall_soundscape:
+Rain falls throughout as a continuous ambient bed. During the interior shots, a refrigerator hum is audible. At Shot 3, the door chime rings once.
 
-### 2. `[Shot k]` 切点时刻
-- 每镜一行，格式 `[Shot k] 起-止s: 画面描述。运镜。`
-- 时刻必须与段卡.md 的 `shots[].time` 逐字对齐
-- 镜与镜之间不重叠、不留缝
-
-### 3. 台词 `<d>` 块
-- 有台词的镜头，台词**逐字**进 `<d>[Chinese] 台词内容</d>`
-- 放在该镜行末
-- 例：`[Shot 3] 6.0-9.0s: 阿雾低头轻声说话。<d>[Chinese] 老样子。</d>`
-- 无台词镜头不写 `<d>` 块
-
-### 4. `overall_soundscape`
-- 段级声景，不是镜级
-- 列环境音、动作音、特殊音效
-- 声景随画面变化：室内段冰箱声，室外段雨声变大
-
-### 5. `non_diegetic_music`
-- 段级配乐情绪和编曲
-- 写风格 + 音量 + 进入/退出方式
-
-## 完整范例（E01-02，含台词）
-
-```
-[对齐指令] 保持角色面部与服装一致。参考图1=阿雾_泪，图2=小夜_正，图3=便利店_夜，图4=热牛奶盒。
-
-integrated_multimodal_description:
-[Shot 1] 0.0-3.0s: 阿雾走到柜台前，把热牛奶放上柜台。固定镜头。
-[Shot 2] 3.0-6.0s: 小夜扫码，余光看到阿雾左眼角下的泪痣。固定镜头特写。
-[Shot 3] 6.0-9.0s: 阿雾低头轻声说话。<d>[Chinese] 老样子。</d>
-[Shot 4] 9.0-11.0s: 小夜手指停顿在扫码枪上。固定镜头大特写。
-[Shot 5] 11.0-13.0s: 两人沉默相对，冰箱嗡嗡声。固定镜头。
-[Shot 6] 13.0-15.0s: 阿雾睫毛轻颤。固定镜头特写。
-
-overall_soundscape: 冰箱嗡嗡声持续，牛奶盒放柜台轻响，扫码枪"滴"，两人呼吸声。
-
-non_diegetic_music: 加入低音弦乐长音，音量压低，钢琴持续。
+non_diegetic_music:
+Sparse single piano notes, with large reverb and low volume.
 ```
 
-## 上传清单（每段附）
+关键规则
 
-| 编号 | 资产编码 | 文件路径 |
-|---|---|---|
-| 图1 | 阿雾_泪 | `assets/人物/阿雾/泪.png` |
-| 图2 | 小夜_正 | `assets/人物/小夜/正.png` |
-| 图3 | 便利店_夜 | `assets/场景/便利店/夜.png` |
-| 图4 | 热牛奶盒 | `assets/道具/热牛奶盒.png` |
+1. 输出契约
+
+只输出六个字段，字段名小写、带冒号，无前言、无解释、无 Markdown 代码围栏。六段主体全部英语，唯一例外：<d>内的对白/歌词、画面可见文字保留原语言。
+
+2. subject_definitions
+
+每行定义一个引用单位。图片仅用于定义角色/场景/风格时，不单独建<Picture N>行，而是写进<Subject N>定义里，注明来源。上例中<Picture 1>到<Picture 5>均为“来源图片”，因此只作为<Subject N>的出处引用，不单独成行。
+
+3. summary
+
+以方括号任务类型开头。本模板为角色/场景参考，用[reference generation]；若同时复用音频，用+组合[audio reuse]。
+
+4. retention_analysis
+
+每个标签一行，只能用固定标记：视觉内容用fully_preserved、partially_preserved、attribute_transfer、weak_reference；音频用fully_copy、partially_copy、reference、weak_reference。格式为<Subject N> (appears in [Shot k]): marker - 保留了什么。
+
+5. detailed_description
+
+· 先写1–2句整体风格，再进入[Shot 1]，风格声明不放进首镜。
+· [Shot 1]无时间戳；后续镜头用[Shot N] At MM:SS.mmm, the camera cuts to ...，时间严格递增。
+· 每镜按构图、主体外貌与位置、环境与光线、动作与状态变化、运镜、当前声音、引用内容生效点来写，不写成剧情梗概。
+· 运镜写自然英语动作 + 幅度 + 速度，如pushes in at slow speed with small amplitude，不堆标签。
+· 台词格式：<Subject 2> (S1) says, <d>[Chinese] 老样子。</d>，台词外写说话人和语气，<d>内只放语言标签和逐字台词。
+
+6. overall_soundscape
+
+1–4句英语，只写环境声、物理动作声、非语言人声。不重复对白、歌唱或画内音乐；完全静音才写N/A。
+
+7. non_diegetic_music
+
+1–3句英语，只写角色听不到的配乐：乐器、速度、节奏、动态。不写抽象情绪词；无配乐写N/A。
+
+上传清单（六段外，中文备注可自留）
+
+编号 资产编码 文件路径 对应标签
+图1 小夜_正 assets/人物/小夜/正.png <Subject 1>
+图2 阿雾_正 assets/人物/阿雾/正.png <Subject 2>
+图3 便利店_夜 assets/场景/便利店/夜.png <Subject 3>
+图4 便利店门口_夜 assets/场景/便利店门口/夜.png <Subject 4>
+图5 街道_雨 assets/场景/街道/雨.png <Subject 5>
+
+提交前自检
+
+检查项 标准
+字段名 六个，全小写，全英文，顺序不可变
+六段主体语言 除<d>和画面文字外，全英文
+首镜时间戳 [Shot 1]不写时间戳
+后续时间戳 At MM:SS.mmm，递增，不超时长
+保留标记 只用规范词，不自己发明
+overall_soundscape 不重复对白/音乐
+non_diegetic_music 不写情绪，只写乐器/速度/动态
