@@ -1,4 +1,3 @@
-
 MiniMax H3 Ref2VA 六段式提示词模板
 ---
 上传清单
@@ -52,7 +51,7 @@ Sparse single piano notes, with large reverb and low volume.
 
 2. subject_definitions
 
-每行定义一个引用单位。图片仅用于定义角色/场景/风格时，不单独建<Picture N>行，而是写进<Subject N>定义里，注明来源。上例中<Picture 1>到<Picture 5>均为“来源图片”，因此只作为<Subject N>的出处引用，不单独成行。
+每行定义一个引用单位。图片仅用于定义角色/场景/风格时，不单独建<Picture N>行，而是写进<Subject N>定义里，注明来源。上例中<Picture 1>到<Picture 5>均为"来源图片"，因此只作为<Subject N>的出处引用，不单独成行。
 
 3. summary
 
