@@ -41,35 +41,44 @@
 
 | Shot | 时刻 | 景别 | 运镜 | 画面 | 引用资产 | 台词 |
 
+
+## t上传清单
+
+| 编号 | 资产编码 | 文件路径 | 对应标签 |
+|---|---|---|---|
+| 图1 | 小夜_正 | `assets/人物/小夜/正.png` | `<Subject 1>` |
+| 图2 | 阿雾_正 | `assets/人物/阿雾/正.png` | `<Subject 2>` |
+| 图3 | 便利店_夜 | `assets/场景/便利店/夜.png` | `<Subject 3>` |
+| 图4 | 便利店门口_夜 | `assets/场景/便利店门口/夜.png` | `<Subject 4>` |
+| 图5 | 街道_雨 | `assets/场景/街道/雨.png` | `<Subject 5>` |
+
 ## 三、H3 提示词（直接复制到 Hailuo）
 
 subject_definitions:
-<Subject 1> is [角色名], whose face and outfit come from <Picture 1>.
-<Subject 2> is [角色名], whose face and outfit come from <Picture 2>.
-<Subject 3> is [场景名], whose layout and lighting come from <Picture 3>.
-[按实际引用资产增删行。仅作身份/风格来源的图片，写进 Subject 定义里，不单独建行。]
+<Subject 1> is [character name], whose face and outfit come from <Picture 1>.
+<Subject 2> is [character name], whose face and outfit come from <Picture 2>.
+<Subject 3> is [scene name], whose layout and lighting come from <Picture 3>.
+[add or remove Subject lines as needed]
 
 summary:
-[reference generation] [一句话概括目标视频。]
+[reference generation] [one-sentence summary of the target video]
 
 retention_analysis:
-<Subject 1> (appears in [Shot k], [Shot k]): fully_preserved - [保留了什么]。
-<Subject 2> (appears in [Shot k]): fully_preserved - [保留了什么]。
-[每个标签一行。标记只用：fully_preserved / partially_preserved / attribute_transfer / weak_reference]
+<Subject t1> (appears in [Shot k], [Shot k]): fully_preserved - [what is preserved]
+<Subject 2> (appears in [Shot k]): fully_preserved - [what is preserved]
 
 detailed_description:
-[1–2 句整体风格声明。]
+[1-2 sentences of overall style]
 
-[Shot 1] [画面、主体、环境、动作、运镜、声音。不写时间戳。]
-[Shot 2] At 00:03.000, the camera cuts to [内容]。
-[Shot 3] At 00:06.000, the camera cuts to [内容]。
-[有台词时：<Subject N> (S1) says, <d>[Chinese] 台词。</d>]
+[Shot 1] [composition, subject appearance and position, environment and lighting, action and state change, camera movemhent, current sound, reference activation point. No timestamp.]
+[Shot 2] At 00:03.000, the camera cuts to [content].
+[Shot 3] At 00:06.000, the camera cuts to [content]. [if dialogue: <Subject N> (S1) says, <d>[Chinese] line.</d>]
 
 overall_soundscape:
-[1–4 句英语，只写环境声、物理动作声、非语言人声。]
+[1-4 sentences in English. Only ambient sound, physical action sound, non-verbal human voice.]
 
 non_diegetic_music:
-[1–3 句英语，只写配乐乐器、速度、节奏、动态。无配乐写 N/A。]
+[1-3 sentences in English. Only instrumentation, tempo, rhythm, dynamics. Write N/A if none.]
 
 ## 四、豆包/Seedance 提示词（直接复制到即梦）
 
