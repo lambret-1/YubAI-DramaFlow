@@ -1,13 +1,16 @@
-MiniMax H3 Ref2VA 六段式提示词模板
----
-上传清单
-编号 资产编码 文件路径 对应标签
-图1 小夜_正 assets/人物/小夜/正.png <Subject 1>
-图2 阿雾_正 assets/人物/阿雾/正.png <Subject 2>
-图3 便利店_夜 assets/场景/便利店/夜.png <Subject 3>
-图4 便利店门口_夜 assets/场景/便利店门口/夜.png <Subject 4>
-图5 街道_雨 assets/场景/街道/雨.png <Subject 5>
-标准结构（可直接复制）
+# MiniMax H3 Ref2VA 六段式提示词模板
+
+## 上传清单
+
+| 编号 | 资产编码 | 文件路径 | 对应标签 |
+|---|---|---|---|
+| 图1 | 小夜_正 | `assets/人物/小夜/正.png` | `<Subject 1>` |
+| 图2 | 阿雾_正 | `assets/人物/阿雾/正.png` | `<Subject 2>` |
+| 图3 | 便利店_夜 | `assets/场景/便利店/夜.png` | `<Subject 3>` |
+| 图4 | 便利店门口_夜 | `assets/场景/便利店门口/夜.png` | `<Subject 4>` |
+| 图5 | 街道_雨 | `assets/场景/街道/雨.png` | `<Subject 5>` |
+
+## 标准结构（可直接复制）
 
 ```text
 subject_definitions:
@@ -43,48 +46,19 @@ non_diegetic_music:
 Sparse single piano notes, with large reverb and low volume.
 ```
 
-关键规则
+## 关键规则
 
-1. 输出契约
-
-只输出六个字段，字段名小写、带冒号，无前言、无解释、无 Markdown 代码围栏。六段主体全部英语，唯一例外：<d>内的对白/歌词、画面可见文字保留原语言。
-
-2. subject_definitions
-
-每行定义一个引用单位。图片仅用于定义角色/场景/风格时，不单独建<Picture N>行，而是写进<Subject N>定义里，注明来源。上例中<Picture 1>到<Picture 5>均为"来源图片"，因此只作为<Subject N>的出处引用，不单独成行。
-
-3. summary
-
-以方括号任务类型开头。本模板为角色/场景参考，用[reference generation]；若同时复用音频，用+组合[audio reuse]。
-
-4. retention_analysis
-
-每个标签一行，只能用固定标记：视觉内容用fully_preserved、partially_preserved、attribute_transfer、weak_reference；音频用fully_copy、partially_copy、reference、weak_reference。格式为<Subject N> (appears in [Shot k]): marker - 保留了什么。
-
-5. detailed_description
-
-· 先写1–2句整体风格，再进入[Shot 1]，风格声明不放进首镜。
-· [Shot 1]无时间戳；后续镜头用[Shot N] At MM:SS.mmm, the camera cuts to ...，时间严格递增。
-· 每镜按构图、主体外貌与位置、环境与光线、动作与状态变化、运镜、当前声音、引用内容生效点来写，不写成剧情梗概。
-· 运镜写自然英语动作 + 幅度 + 速度，如pushes in at slow speed with small amplitude，不堆标签。
-· 台词格式：<Subject 2> (S1) says, <d>[Chinese] 老样子。</d>，台词外写说话人和语气，<d>内只放语言标签和逐字台词。
-
-6. overall_soundscape
-
-1–4句英语，只写环境声、物理动作声、非语言人声。不重复对白、歌唱或画内音乐；完全静音才写N/A。
-
-7. non_diegetic_music
-
-1–3句英语，只写角色听不到的配乐：乐器、速度、节奏、动态。不写抽象情绪词；无配乐写N/A。
-
-
-提交前自检
-
-检查项 标准
-字段名 六个，全小写，全英文，顺序不可变
-六段主体语言 除<d>和画面文字外，全英文
-首镜时间戳 [Shot 1]不写时间戳
-后续时间戳 At MM:SS.mmm，递增，不超时长
-保留标记 只用规范词，不自己发明
-overall_soundscape 不重复对白/音乐
-non_diegetic_music 不写情绪，只写乐器/速度/动态
+| 字段 | 规则 |
+|---|---|
+| 六段顺序 | `subject_definitions` → `summary` → `retention_analysis` → `detailed_description` → `overall_soundscape` → `non_diegetic_music`，不可变 |
+| 六段主体语言 | 全英语；仅 `<d>` 内台词/歌词、双引号内画面可见文字可保留中文 |
+| `subject_definitions` | 每个引用主体一行；场景/道具用 `whose layout/lighting/material comes from ...`，不要套用角色的 `face and outfit` |
+| `summary` | 以 `[reference generation]` 开头 |
+| `retention_analysis` | 每个标签一行；标记只用 `fully_preserved` / `partially_preserved` / `attribute_transfer` / `weak_reference` |
+| `[Shot 1]` | 不写时间戳 |
+| 后续镜头 | `At MM:SS.mmm, the camera cuts to ...`，严格递增且不超段长 |
+| 台词 | `<Subject N> (S1) says, <d>[Chinese] 逐字台词。</d>` |
+| 画面文字 | 英文双引号包裹原文，如 `"营业中"` |
+| `overall_soundscape` | 1–4 句英语；只写环境声、物理动作声、非语言人声；不重复对白/音乐 |
+| `non_diegetic_music` | 1–3 句英语；只写乐器、速度、节奏、动态；不写抽象情绪词；无配乐写 `N/A` |
+| 画内拟声词 | 不是画面文字，六段内必须写英语，如 `door chime ding` |
