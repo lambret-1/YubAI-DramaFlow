@@ -9,26 +9,26 @@
 {
   "shot_id": "E01-01_S03",
   "segment": 1,
-  "segment_name": "便利店_夜",
+  "segment_name": "教室_白天",
   "duration_sec": 3,
   "framing": "MCU",
   "camera": "fixed",
-  "characters": ["小夜_正"],
-  "scene": "便利店_夜",
-  "action": "小夜站在柜台后擦杯子，眼神平静",
+  "characters": ["尚哥"],
+  "scene": "教室_白天",
+  "action": "尚哥站在教室后排，眼神瞟向前排",
   "dialogue": {
-    "speaker": "小夜",
-    "line": "欢迎光临。",
-    "type": "diegetic"
+    "speaker": "尚哥",
+    "line": "",
+    "type": "none"
   },
   "difficulty": "green",
   "fallback": null,
   "image_prompt_zh": "[由 P4 生成，已拼 anchor_zh]",
   "image_prompt_en": "[由 P4 生成，已拼 anchor_en]",
-  "image_refs": ["小夜_正", "便利店_夜"],
+  "image_refs": ["尚哥", "教室_白天"],
   "video_prompt_doubao": "[由 P4 生成，写入段卡【镜头N】块]",
   "video_prompt_minimax_h3": "[由 P4 生成，写入段卡 H3 detailed_description]",
-  "sfx": "冰箱嗡鸣底噪",
+  "sfx": "教室安静底噪",
   "transition_out": "cut"
 }
 ```
@@ -45,7 +45,7 @@
 
 ## image_refs 编码规则
 
-- 人物：`<角色全名>_<变体>`，例 `林小雨_正`、`林小雨_笑`
+- 人物：直接 `<角色全名>`，例 `尚哥`、`女神`（每个角色对应 1 张三视图图）
 - 场景：`<场景名>_<时段>`，例 `教室_白天`、`天台_黄昏`
 - 道具：直接 `<道具名>`，例 `信封`
 - 每个编码必须在 `03_资产/manifest.md` 注册过
