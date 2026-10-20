@@ -1,0 +1,17 @@
+{
+  "project_name": "shangge-love-story",
+  "total_duration_sec": 60,
+  "ratio": "9:16",
+  "current_phase": "p4_segment",
+  "phases": {
+    "p1_story": {"status": "done"},
+    "p2_style": {"status": "done"},
+    "p3_assets": {"status": "done"},
+    "p4_segment": {"status": "in_progress", "segments_done": 1}
+  },
+  "global_anchor": {
+    "zh": "青春校园短剧实拍质感，明亮教室自然光，干净通透，细腻皮肤写实，清新校园氛围，快手短剧风格",
+    "en": "live-action campus drama, bright classroom natural light, clean and fresh, realistic skin texture, youthful atmosphere, short drama style, cinematic, mastershot",
+    "negative": "anime, cartoon, 3d render, illustration, blurry, low quality, deformed, watermark, text, ugly face, overexposed"
+  }
+}
