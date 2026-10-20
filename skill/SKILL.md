@@ -43,20 +43,23 @@ projects/<项目名>/
 ├── 01_故事/
 │   ├── 大纲.md
 │   ├── 剧本.md
-│   └── 可行性评估.md
+│   ├── 可行性评估.md
+│   └── 场景清单.md           # 场景编码与时段，供 P3 建场景卡
 ├── 02_风格/
-│   └── 风格定义.md          # 含 global_anchor
+│   ├── 风格定义.md          # 含 global_anchor
+│   └── 候选锚定词.md         # 3 条候选锚定词
 ├── 03_资产/
 │   ├── manifest.md          # 中文编码 → 文件路径
+│   ├── 待跑图清单.md         # 资产编码 → 提示词 → 建议工具 → 用途
 │   ├── 人物/<角色名>.md
 │   └── 场景/<场景名>.md
 └── 04_段卡/
-├── 总览.md              # 全片索引 + 配音对齐总表
-└── 第一集/
-├── E01-01.md        # 0-15s：元数据+镜头表+H3提示词+豆包提示词+TTS
-├── E01-02.md        # 15-30s
-├── E01-03.md        # 30-45s
-└── E01-04.md        # 45-60s
+    ├── 总览.md              # 全片索引 + 配音对齐总表
+    └── 第一集/
+        ├── E01-01.md        # 0-15s：元数据+镜头表+H3提示词+豆包提示词+TTS
+        ├── E01-02.md        # 15-30s
+        ├── E01-03.md        # 30-45s
+        └── E01-04.md        # 45-60s
 ```
 
 ## 5. project.json
@@ -83,10 +86,10 @@ projects/<项目名>/
 
 | 模板 | 参考文档 | 语法特征 |
 |---|---|---|
-| 豆包 / Seedance | reference/豆包视频提示词模板.md | 段级：参考官方模版 |
-| MiniMax H3 | reference/minimax-h3-多参考模板.md | 段级：官方多参考模式六段 |
+| 豆包 / Seedance | `reference/豆包视频提示词模板.md` | 段级：`@编码` + 【镜头N】 + 十字段 + <环境音> + （配乐） + 【约束】 |
+| MiniMax H3 | `reference/minimax-h3-多参考模板.md` | 段级：官方多参考模式六段式 |
 
-H3 六段式语言规则与 Gate4 自检以 phases/p4-segment.md 为准：
+H3 六段式语言规则与 Gate4 自检以 `phases/p4-segment.md` 为准：
 
 - 六段字段顺序不可变：subject_definitions → summary → retention_analysis → detailed_description → overall_soundscape → non_diegetic_music
 - 六段主体全英文；仅 `<d>` 内台词/歌词和英文双引号内画面可见文字可保留中文
@@ -98,7 +101,7 @@ H3 六段式语言规则与 Gate4 自检以 phases/p4-segment.md 为准：
 
 - 读用户输入 → 判定入口
 - 读 / 初始化 `project.json`
-- 进入对应 phases/p*.md
+- 进入对应 `phases/p*.md`
 - 每完成一阶段，更新 `project.json.current_phase`
 - 遇到 Gate 不过，停下来问用户
 
