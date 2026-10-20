@@ -1,4 +1,3 @@
-
 # MiniMax H3 Ref2VA 六段式提示词模板
 
 ## 上传清单
@@ -49,19 +48,17 @@ Sparse single piano notes, with large reverb and low volume.
 
 关键规则
 
-字段 规则
-六段顺序 subject_definitions → summary → retention_analysis → detailed_description → overall_soundscape → non_diegetic_music，不可变
-六段主体语言 全英语；仅 <d> 内台词/歌词、双引号内画面可见文字可保留中文
-subject_definitions 每个引用主体一行；场景/道具用 whose layout/lighting/material comes from ...，不要套用角色的 face and outfit
-summary 以 [reference generation] 开头
-retention_analysis 每个标签一行；标记只用 fully_preserved / partially_preserved / attribute_transfer / weak_reference
-[Shot 1] 不写时间戳
-后续镜头 At MM:SS.mmm, the camera cuts to ...，严格递增且不超段长
-台词 <Subject N> (S1) says, <d>[Chinese] 逐字台词。</d>
-画面文字 英文双引号包裹原文，如 "营业中"
-overall_soundscape 1–4 句英语；只写环境声、物理动作声、非语言人声；不重复对白/音乐
-non_diegetic_music 1–3 句英语；只写乐器、速度、节奏、动态；不写抽象情绪词；无配乐写 N/A
-画内拟声词 不是画面文字，六段内必须写英语，如 door chime ding
-
-```
-```
+| 字段 | 规则 |
+|---|---|
+| 六段顺序 | subject_definitions → summary → retention_analysis → detailed_description → overall_soundscape → non_diegetic_music，不可变 |
+| 六段主体语言 | 全英语；仅 `<d>` 内台词/歌词、双引号内画面可见文字可保留中文 |
+| subject_definitions | 每个引用主体一行；场景/道具用 whose layout/lighting/material comes from ...，不要套用角色的 face and outfit |
+| summary | 以 [reference generation] 开头 |
+| retention_analysis | 每个标签一行；标记只用 fully_preserved / partially_preserved / attribute_transfer / weak_reference |
+| [Shot 1] | 不写时间戳 |
+| 后续镜头 | At MM:SS.mmm, the camera cuts to ...，严格递增且不超段长 |
+| 台词 | `<Subject N> (S1) says, <d>[Chinese] 逐字台词。</d>` |
+| 画面文字 | 英文双引号包裹原文，如 "营业中" |
+| overall_soundscape | 1–4 句英语；只写环境声、物理动作声、非语言人声；不重复对白/音乐 |
+| non_diegetic_music | 1–3 句英语；只写乐器、速度、节奏、动态；不写抽象情绪词；无配乐写 N/A |
+| 画内拟声词 | 不是画面文字，六段内必须写英语，如 door chime ding |
