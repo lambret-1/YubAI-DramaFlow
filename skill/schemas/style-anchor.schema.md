@@ -2,33 +2,31 @@
 
 > 这是整个项目的"视觉身份证"。所有图片提示词**开头必须拼接**这段。
 
-## 结构
+## 产物格式（markdown）
 
-```yaml
-project_name: <项目名>
-genre: 青春校园 | 古风 | 都市 | 科幻 | 搞笑 | 悬疑
-tone: 轻松 | 治愈 | 热血 | 悬疑 | 悲伤
+```markdown
+# 风格定义
 
-visual:
-  main_style: 日漫 | 美漫 | 韩漫 | CG | 仿真人 | 国风 | 水彩
-  color_palette: 明亮温暖 | 暗沉压抑 | 高饱和 | 低饱和
-  texture: 平涂 | 厚涂 | 水彩 | 油画
-  reference_artist: 新海诚 | 吉卜力 | 皮克斯 | 其他__
+## 基础
+- 题材：<题材，例：治愈系爱情 / 都市夜归人>
+- 基调：<基调，例：克制、温柔、留白>
+- 主风格：<风格族，例：日漫风 / 仿真人 / 国风>
+- 色调：<色调描述>
+- 画面质感：<质感描述>
 
-anchor_zh: "<20-50 个汉字风格描述>"
-anchor_en: "<20-50 个英文风格关键词逗号分隔>"
-negative: "blurry, low quality, deformed, 3d render, western cartoon, watermark, text"
+## 风格锚定提示词
 
-test_images:
-  - 用户选定的风格测试图路径（用户在外部跑图后回填）
-```
+### 中文
+<20-50 个汉字风格描述>
 
-## 范例（青春校园日漫）
+### 英文
+<20-50 个英文风格关键词逗号分隔>
 
-```yaml
-anchor_zh: 日漫风格，青春校园题材，明亮暖色调，细腻人物刻画，柔和逆光，清新氛围，新海诚光影
-anchor_en: anime style, high school slice of life, bright warm palette, detailed character, soft rim light, fresh atmosphere, Makoto Shinkai inspired, clean line art, masterpiece
-negative: dark, horror, realistic photo, 3D render, western cartoon, rough sketch, low quality, blurry, deformed, ugly face
+### 负面词
+<negative 词表，逗号分隔>
+
+## 参考艺术家
+<参考导演/画师/作品，或写无>
 ```
 
 ## 规则
