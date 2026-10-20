@@ -1,0 +1,17 @@
+{
+  "project_name": "yixintang",
+  "total_duration_sec": 60,
+  "ratio": "9:16",
+  "current_phase": "p4_segment_done",
+  "phases": {
+    "p1_story": {"status": "done"},
+    "p2_style": {"status": "done"},
+    "p3_assets": {"status": "done"},
+    "p4_segment": {"status": "done", "segments_done": 4}
+  },
+  "global_anchor": {
+    "zh": "电影级真人实拍质感，黄昏逆光透过木格窗，暖琥珀色调覆旧木地板，胶片颗粒细腻，浅景深虚化背景，静谧压抑氛围",
+    "en": "live action cinematic still, 35mm film grain, dusk backlight, lattice window silhouette, warm amber tone, shallow depth of field, old wooden floor, natural lighting, quiet oppressive mood, film photography, anamorphic lens, muted earth colors, realistic skin texture, documentary style, 9:16 vertical",
+    "negative": "low quality, deformed, watermark, text, cartoon, anime, illustration, cgi look, overexposed, oversaturated, plastic skin, extra fingers, bad anatomy, studio lighting, green screen"
+  }
+}
